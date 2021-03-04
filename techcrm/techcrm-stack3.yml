@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: techakademi/crmdb:1
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=dbroot
+      - POSTGRES_PASSWORD=rootman
+    networks:
+      - techcrm
+
+  nginx:
+    image: techakademi/crmnginx:1
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    depends_on:
+      - web
+    ports:
+      - "90:80"
+    networks:
+      - techcrm
+
+  web:
+    image: techakademi/crm:1
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == worker]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    depends_on: 
+      - postgres-db
+    networks:
+      - techcrm
+
+volumes:
+  postgres_data:
+  pgadmin:
+
+networks:
+  techcrm:
+    external: true

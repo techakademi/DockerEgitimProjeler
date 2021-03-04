@@ -1,0 +1,11 @@
+Flask==1.0
+Flask-SQLAlchemy==2.3.2
+flask-WTF==0.14.2
+gunicorn==20.0.4
+Passlib==1.7.4
+psycopg2-binary==2.8.4
+Werkzeug==0.14.1
+email_validator
+Flask-Bcrypt==0.7.1
+Flask-Login==0.4.1
+Pillow==5.1.0

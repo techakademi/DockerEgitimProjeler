@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  ithost:
+    image: techakademi/ithost:3.1
+    deploy:
+      replicas: 3
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.ithostcomp.rule=Host(`www.ithostcomp.com`)"
+        - "traefik.http.routers.ithostcomp.entrypoints=web"
+        - "traefik.http.services.ithostcomp.loadbalancer.server.port=80"
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
+        reservations:
+          cpus: '0.25'
+          memory: 50M
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+        monitor: 60s
+        failure_action: rollback
+      rollback_config:
+        parallelism: 3
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 40s 
+    healthcheck:
+      test: ["CMD-SHELL", "wget -O /dev/null http://localhost || exit 1"]
+      start_period: 50s
+      interval: 40s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: fluentd
+      options:
+        tag: ithostcomp.com
+    networks:
+      - traefik-vekilnet
+      - loglama-lognet
+
+
+networks:
+  traefik-vekilnet:
+    external: true
+  loglama-lognet:
+    external: true

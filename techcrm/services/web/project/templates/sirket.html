@@ -1,0 +1,50 @@
+{% extends '/includes/_layout.html' %}
+
+{% block content %}
+<div class="span8">
+  <div class="content">
+    <div class="module">
+      <div class="module-head">
+        <h3>Şirket Bilgileri</h3>
+      </div>
+      <div class="module-body">
+        <div class="col-md-6">
+            <label><h1>{{ sirket.company }}</h1></label>
+            <hr>
+            <div class="control-group">
+                  <h4>Temsilci Adı: <span>{{ sirket.temsilci }}</span></h4>
+                  <p>Temsilci Eposta Adresi: <span>{{ sirket.tms_eposta }}</span></p>
+                  <p>Temsilci Web Adresi: <span>{{ sirket.domain }}</span></p>
+                  <p>Sunucu Adı: <span>{{ sirket.hostname }}</span></p>
+                  <p>IP Adresi: <span>{{ sirket.pubip }}</span></p>
+                  <p>Şehir: <span>{{ sirket.city }}</span></p>
+                  <p>Ülke: <span>{{ sirket.country }}</span></p>
+            </div>
+            <div>
+              <a class="btn btn-primary" href="{{ url_for('update_sirket', sirket_id=sirket.id) }}">Güncelle</a></td>
+                    <td><a class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Sil</a></td>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Bu Müşteriyi Silmek İstiyormusun ?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                  <form action="{{ url_for('delete_sirket', sirket_id=sirket.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Sil">
+                  </form>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+    </div><!--/.content-->
+  </div><!--/.span9-->
+</div>
+{% endblock content%}

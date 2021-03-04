@@ -1,0 +1,55 @@
+{% extends '/includes/_layout.html' %}
+{% block content %}
+<div class="wrapper span7">
+    <div class="container">
+        <div class="row">
+            <div class="span7">
+                <div class="content">
+                    <div class="module">
+                        <div class="module-head">
+                            <h2>
+                                Tüm Müşteriler</h2>
+                        </div>                    
+                        <div class="module-body">
+                            {% for sirket in Sirketler.items %}    
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="media user">
+                                        <div class="media-body">                                            
+                                                <h3 class="media-title">
+                                                    {{ sirket.company }}
+                                                    &nbsp;
+                                                    <a class="btn btn-primary m-5" href="{{ url_for('sirket', sirket_id=sirket.id) }}">Müşteri Detay</a>
+                                                </h3>                               
+                                                <hr>
+                                                <p><small class="muted">{{ sirket.temsilci }}</small></p>
+                                                <p><small class="muted">{{ sirket.tms_Eposta }}</small></p>
+                                                <p><small class="muted">{{ sirket.country }}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% for page_num in Sirketler.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2 ) %}
+
+        {% if page_num %}
+
+            {% if Sirketler.page == page_num %}
+            <a class="btn btn-info mb-4" href="{{ url_for('tumsirketler', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('tumsirketler', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+
+        {% else %}
+        
+        {% endif %}
+
+        {% endfor %}
+</div>
+{% endblock content%}

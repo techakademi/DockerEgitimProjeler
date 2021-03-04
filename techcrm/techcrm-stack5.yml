@@ -1,0 +1,112 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: techakademi/crmdb:1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=dbroot
+      - POSTGRES_PASSWORD=rootman
+    networks:
+      - techcrm
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "8889:80"
+    networks:
+      - techcrm
+    
+  nginx:
+    image: techakademi/crmnginx:1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    depends_on:
+      - web
+    ports:
+      - "90:80"
+    networks:
+      - techcrm
+
+  web:
+    image: techakademi/crm:2
+    deploy:
+      replicas: 4
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+        reservations:
+          cpus: '0.25'
+          memory: 50M
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+        monitor: 60s
+        failure_action: rollback
+      rollback_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 40s 
+      placement:
+          constraints: [node.role == worker]
+    depends_on: 
+      - postgres-db
+    networks:
+      - techcrm
+
+volumes:
+  postgres_data:
+  pgadmin:
+
+networks:
+  techcrm:
+    external: true

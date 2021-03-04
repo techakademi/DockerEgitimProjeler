@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: techakademi/crmdb:1
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=dbroot
+      - POSTGRES_PASSWORD=rootman
+    networks:
+      - techcrm
+
+  nginx:
+    image: techakademi/crmnginx:1
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "90:80"
+    networks:
+      - techcrm
+
+  web:
+    image: techakademi/crm:1
+    deploy:
+      restart_policy:
+        condition: on-failure
+    networks:
+      - techcrm
+  
+volumes:
+  postgres_data:
+  pgadmin:
+
+networks:
+  techcrm:
+    external: true

@@ -1,0 +1,54 @@
+{% extends '/includes/_layout.html' %}
+{% block content %}
+      <div class="module module-login span4 offset2">
+        <form class="form-vertical" method="POST" action="">
+          {{ form.hidden_tag() }}
+          <div class="module-head">
+            <h3>Sisteme Giriş Yap</h3>
+          </div>
+          <div class="module-body">
+            <div class="control-group">
+              <div class="controls row-fluid">
+                {{ form.K_EPosta.label(class="form-control-label") }}
+                {% if form.K_EPosta.errors %}
+                {{ form.K_EPosta(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error  in form.K_EPosta.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                  {{ form.K_EPosta(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls row-fluid">
+                {{ form.K_Parola.label(class="form-control-label") }}
+                {% if form.K_Parola.errors %}
+                {{ form.K_Parola(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error  in form.K_Parola.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                  {{ form.K_Parola(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="module-foot">
+            <div class="control-group">
+              <div class="controls clearfix">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+              </div>
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+{% endblock content%}

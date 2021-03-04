@@ -1,0 +1,31 @@
+﻿{% extends '/includes/_layout.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="span9">
+                <div class="content">
+                        <div class="btn-box-row row-fluid">
+                        <a class="btn-box big span4">
+                            <i class="icon-group"></i>
+                            <b>{{ sirket_sayisi }}</b>
+                            <p class="text-muted">Toplam  Müşteri</p></a>
+
+                        <a class="btn-box big span4">
+                            <i class="icon-user"></i>
+                            <b>{{ kullanici_sayisi }}</b>
+                            <p class="text-muted">Toplam  Kullanıcı</p></a>
+
+                        <a class="btn-box big span4">
+                            <i class="icon-user"></i>
+                            <b>{{ topten_sayisi }}</b>
+                            <p class="text-muted">En yüksek Puan alan Müşteri Sayısı</p></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock content%}

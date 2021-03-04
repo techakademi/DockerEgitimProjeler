@@ -1,0 +1,152 @@
+{% extends '/includes/_layout.html' %}
+{% block content %}
+<div class="module span7">
+    <form method="POST" action=""">
+          {{ form.hidden_tag() }}
+        <div class="span6">
+            <div class="row span6">
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                <div class="form-row">
+                    <div class="col">
+                    {{ form.Company.label(class="form-control-label") }}
+                    {% if form.Company.errors %}
+                        {{ form.Company(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Company.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    
+                    {% else %}
+                        {{ form.Company(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                </div>
+                <div class="form-group">
+                {{ form.Temsilci.label(class="form-control-label") }}
+                {% if form.Temsilci.errors %}
+                    {{ form.Temsilci(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Temsilci.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.Temsilci(class="form-control form-control-lg") }}
+                {% endif %}
+                </div>
+                <div class="form-group">
+                {{ form.Temsilci.label(class="form-control-label") }}
+                {% if form.Temsilci.errors %}
+                    {{ form.Temsilci(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Temsilci.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.Temsilci(class="form-control form-control-lg") }}
+                {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.Tms_Eposta.label(class="form-control-label") }}
+                    {% if form.Tms_Eposta.errors %}
+                        {{ form.Tms_Eposta(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Tms_Eposta.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.Tms_Eposta(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.City.label(class="form-control-label") }}
+                    {% if form.City.errors %}
+                        {{ form.City(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.City.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.City(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.Country.label(class="form-control-label") }}
+                    {% if form.Country.errors %}
+                        {{ form.Country(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Country.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.Country(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.Domain.label(class="form-control-label") }}
+                    {% if form.Domain.errors %}
+                        {{ form.Domain(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Domain.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.Domain(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.Hostname.label(class="form-control-label") }}
+                    {% if form.Hostname.errors %}
+                        {{ form.Hostname(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Hostname.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.Hostname(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.PubIP.label(class="form-control-label") }}
+                    {% if form.PubIP.errors %}
+                        {{ form.PubIP(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.PubIP.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.PubIP(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.RevPuan.label(class="form-control-label") }}
+                    {% if form.RevPuan.errors %}
+                        {{ form.RevPuan(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.RevPuan.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.RevPuan(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <br>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+                <br>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}
