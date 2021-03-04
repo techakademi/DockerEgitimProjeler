@@ -1,5 +1,0 @@
-.:53 {
-    file /root/docker.local docker.local
-    forward . 8.8.8.8:53
-    log
-}
