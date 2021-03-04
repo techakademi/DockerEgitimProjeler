@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+    coredns:
+      image: coredns/coredns
+      deploy:
+        restart_policy:
+          condition: on-failure
+        placement:
+          constraints: [node.role == manager]
+      command: 
+        -conf /root/Corefile 
+      ports:
+        - "53:53"
+        - "53:53/udp"
+      volumes:
+        - ./coredns-config/:/root/
+      labels: 
+        - "traefik.enable=false"
+      networks:
+      - traefik-vekilnet
+
+
+
+networks:
+  traefik-vekilnet:
+    external: true

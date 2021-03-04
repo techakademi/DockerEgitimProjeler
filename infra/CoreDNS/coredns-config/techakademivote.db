@@ -1,0 +1,11 @@
+$TTL 60
+$ORIGIN techakademivote.com.
+@                   IN	SOA sns.dns.icann.org. noc.dns.icann.org. (
+          2021022749 ; serial
+          7200       ; refresh (2 hours)				
+          3600       ; retry (1 hour)			
+          1209600    ; expire (2 weeks)				
+          3600       ; minimum (1 hour)				
+          )
+@                         IN A     192.168.1.73
+*.techakademivote.com.    IN A     192.168.1.73

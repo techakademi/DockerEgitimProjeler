@@ -1,0 +1,12 @@
+FROM nginx:1.17-alpine
+
+LABEL Maintainer="Hamza GURCAN techakademi@gmail.com"
+LABEL Version="Healthcheck2"
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY nginx.conf /etc/nginx/conf.d
+
+COPY ./index.html /usr/share/nginx/html/index.html
+
+HEALTHCHECK --start-period=7s --interval=5s --timeout=3s --retries=3 CMD wget --spider --server-response http://localhost/nginx_status.html || exit 1

@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  elastcisearch:
+    image:  techakademi/elasticsearch:1
+    volumes:
+      - esdata:/usr/share/elastcisearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+      ELASTIC_PASSWORD: changeme
+      discovery.type: "single-node"
+    deploy:
+      replicas: 1
+      placement:
+       constraints: [node.role == manager]
+    ports:
+      - 9200:9200
+    networks:
+      - loglama-lognet
+  
+  fluentd:
+    image:  techakademi/fluentd:1
+    volumes:
+      - /var/lib/docker/containers:/fluentd/log/containers
+    deploy:
+      mode: global
+    ports:
+      - 24224:24224
+      - 24224:24224/udp
+    networks:
+      - loglama-lognet
+    depends_on:
+      - elastcisearch
+
+  metricbeat:
+    image: techakademi/metricbeat:1
+    hostname: "{{.Node.Hostname}}"
+    user: root
+    deploy:
+      mode: global
+    volumes:
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - metricbeat:/usr/share/metricbeat/data
+    networks:
+      - loglama-lognet
+
+  kibana:
+    image:  techakademi/kibana:1
+    deploy:
+      replicas: 1
+      placement:
+       constraints: [node.role == manager]
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.kibanatechakademi.rule=Host(`kibana.techakademi.com`)"
+        - "traefik.http.routers.kibanatechakademi.entrypoints=web"
+        - "traefik.http.services.kibanatechakademi.loadbalancer.server.port=5601"
+    networks:
+      - traefik-vekilnet
+      - loglama-lognet
+    depends_on:
+      - elastcisearch
+  
+
+volumes:
+  esdata:
+    driver: local
+  metricbeat:
+    driver: local
+
+
+
+networks:
+  traefik-vekilnet:
+    external: true
+  loglama-lognet:
+    external: true
+
+

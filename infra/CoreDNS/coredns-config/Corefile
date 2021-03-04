@@ -1,0 +1,35 @@
+.:53 {
+    forward . 192.168.1.1 8.8.8.8
+    log
+    errors
+}
+
+techakademi.com:53 {
+    file /root/techakademi.db
+    log
+    errors
+}
+
+ithostcomp.com:53 {
+    file /root/ithostcomp.db
+    log
+    errors
+}
+
+cldzone.com:53 {
+    file /root/cldzone.db
+    log
+    errors
+}
+
+techakademicrm.com:53 {
+    file /root/techakademicrm.db
+    log
+    errors
+}
+
+techakademivote.com:53 {
+    file /root/techakademivote.db
+    log
+    errors
+}

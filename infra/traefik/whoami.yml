@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  whoami:
+    image: techakademi/whoami:1
+    deploy:
+      replicas: 3
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.whoami.rule=Host(`whoami.techakademi.com`)"
+        - "traefik.http.routers.whoami.entrypoints=web"
+        - "traefik.http.services.whoami.loadbalancer.server.port=80"
+    networks:
+      - traefik-vekilnet
+
+
+networks:
+  traefik-vekilnet:
+    external: true
