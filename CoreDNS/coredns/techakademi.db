@@ -1,0 +1,16 @@
+techakademi.com.            IN  SOA dns.techakademi.com. admin.techakademi.com. 2021010191 7200 3600 1209600 3600
+
+dns.techakademi.com.        IN A     192.168.1.73
+node1.techakademi.com.      IN A     192.168.1.74
+node2.techakademi.com.      IN A     192.168.1.75
+hgacer.techakademi.com.     IN A     192.168.1.252
+
+nd2srv.techakademi.com.     IN CNAME node2
+nd1srv.techakademi.com.     IN CNAME node1
+master.techakademi.com.     IN CNAME dns
+traefik.techakademi.com.    IN CNAME dns
+whoami.techakademi.com.     IN CNAME dns
+
+; NOTES
+; If you wish for this file to be reloaded after change,
+; Make sure to increment the serial number !

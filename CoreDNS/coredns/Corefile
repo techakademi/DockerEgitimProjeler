@@ -1,0 +1,11 @@
+.:53 {
+    forward . 192.168.1.1 8.8.8.8
+    log
+    errors
+}
+
+techakademi.com:53 {
+    file /root/techakademi.db
+    log
+    errors
+}

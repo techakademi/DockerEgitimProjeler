@@ -1,0 +1,6 @@
+FROM alpine:3.12
+MAINTAINER HAmza GÜRCAN techakademi@gmail.com
+RUN apk update
+COPY  selamv1.sh /bin/
+RUN ["chmod","+x","/bin/selamv1.sh"]
+ENTRYPOINT ["/bin/selamv1.sh"]
